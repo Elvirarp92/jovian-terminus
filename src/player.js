@@ -10,7 +10,7 @@ class Player {
     this.posY = this.gameSize.height / 2 - this.playerSize.height
     this.orientation = 'N' //N, S, E or W
 
-    this.velocity = 1
+    this.velocity = 25
 
     this.bullets = []
   }
@@ -32,16 +32,16 @@ class Player {
     document.onkeydown = (e) => {
       switch (e.keyCode) {
         case 87: //W
-          this.rotate('N')
+          this.move('N')
           break
         case 65: //A
-          this.rotate('W')
+          this.move('W')
           break
         case 83: //S
-          this.rotate('S')
+          this.move('S')
           break
         case 68: //D
-          this.rotate('E')
+          this.move('E')
           break
 
         // case 32: //SPACE
@@ -59,6 +59,25 @@ class Player {
       this.playerSize.width,
       this.playerSize.height
     )
+  }
+
+  move(direction) {
+    direction != this.direction ? this.rotate(direction) : null
+
+    switch (direction) {
+      case 'N':
+        this.posY -= this.velocity
+        break
+      case 'S':
+        this.posY += this.velocity
+        break
+      case 'E':
+        this.posX += this.velocity
+        break
+      case 'W':
+        this.posX -= this.velocity
+        break
+    }
   }
 
   //just charge the technical debt to my credit card
