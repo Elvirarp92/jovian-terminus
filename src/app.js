@@ -38,6 +38,7 @@ const app = {
   },
 
   start() {
+    this.player = newPlayer(this.player, this.width, this.height, this.keys)
     this.interval = setInterval(() => {
       this.clear()
       this.drawAll()
