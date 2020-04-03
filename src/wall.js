@@ -7,6 +7,16 @@ class Wall {
       y: posY,
     }
     this.gameSize = { width: gameWidth, height: gameHeight }
-    this.color = 'black'
+    this.color = '#000000'
+  }
+
+  draw() {
+    this.ctx.fillStyle = this.color
+    this.ctx.fillRect(
+      this.position.x,
+      this.position.y,
+      this.size.width,
+      this.size.height
+    )
   }
 }
