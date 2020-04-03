@@ -13,6 +13,7 @@ const app = {
   interval: undefined,
   background: undefined,
   player: undefined,
+  walls: [],
   enemies: [],
   obstacles: [],
 
@@ -46,6 +47,9 @@ const app = {
 
   drawAll() {
     this.player.draw()
-  }
+    this.drawWalls()
+  },
+
+  drawWalls() {}
 
 }

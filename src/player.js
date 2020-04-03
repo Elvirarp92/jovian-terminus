@@ -6,8 +6,11 @@ class Player {
 
     this.image = undefined
 
-    this.posX = this.gameSize.width / 2 - this.playerSize.width
-    this.posY = this.gameSize.height / 2 - this.playerSize.height
+    this.position = {
+      x: this.gameSize.width / 2 - this.playerSize.width,
+      y: this.gameSize.height / 2 - this.playerSize.height,
+    }
+
     this.orientation = 'N' //N, S, E or W
 
     this.velocity = 25
@@ -21,8 +24,8 @@ class Player {
     this.image.onload = () =>
       this.ctx.drawImage(
         this.image,
-        this.posX,
-        this.posY,
+        this.position.x,
+        this.position.y,
         this.playerSize.width,
         this.playerSize.height
       )
@@ -54,8 +57,8 @@ class Player {
   draw() {
     this.ctx.drawImage(
       this.image,
-      this.posX,
-      this.posY,
+      this.position.x,
+      this.position.y,
       this.playerSize.width,
       this.playerSize.height
     )
@@ -66,16 +69,16 @@ class Player {
 
     switch (direction) {
       case 'N':
-        this.posY -= this.velocity
+        this.position.y -= this.velocity
         break
       case 'S':
-        this.posY += this.velocity
+        this.position.y += this.velocity
         break
       case 'E':
-        this.posX += this.velocity
+        this.position.x += this.velocity
         break
       case 'W':
-        this.posX -= this.velocity
+        this.position.x -= this.velocity
         break
     }
   }
