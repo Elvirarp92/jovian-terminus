@@ -2,13 +2,13 @@ class Player {
   constructor(ctx, gameWidth, gameHeight) {
     this.ctx = ctx
     this.gameSize = { width: gameWidth, height: gameHeight }
-    this.playerSize = { width: 32, height: 32 }
+    this.size = { width: 32, height: 32 }
 
     this.image = undefined
 
     this.position = {
-      x: this.gameSize.width / 2 - this.playerSize.width,
-      y: this.gameSize.height / 2 - this.playerSize.height,
+      x: this.gameSize.width / 2 - this.size.width,
+      y: this.gameSize.height / 2 - this.size.height,
     }
 
     this.orientation = 'N' //N, S, E or W
@@ -26,8 +26,8 @@ class Player {
         this.image,
         this.position.x,
         this.position.y,
-        this.playerSize.width,
-        this.playerSize.height
+        this.size.width,
+        this.size.height
       )
   }
 
@@ -59,8 +59,8 @@ class Player {
       this.image,
       this.position.x,
       this.position.y,
-      this.playerSize.width,
-      this.playerSize.height
+      this.size.width,
+      this.size.height
     )
   }
 

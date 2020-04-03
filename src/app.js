@@ -24,8 +24,8 @@ const app = {
   },
 
   setDimensions() {
-    this.appSize.width = window.innerWidth -10
-    this.appSize.height = window.innerHeight -10
+    this.appSize.width = window.innerWidth - 10
+    this.appSize.height = window.innerHeight - 10
     this.canvasDom.width = this.appSize.width
     this.canvasDom.height = this.appSize.height
   },
@@ -33,7 +33,7 @@ const app = {
   //free range organic handmade primitive walls
   setWalls() {
     this.walls.push(
-      new Wall( 
+      new Wall(
         this.ctx,
         this.appSize.width,
         50,
@@ -43,10 +43,39 @@ const app = {
         this.appSize.height
       )
     )
-    this.walls.push(new Wall(this.ctx, this.appSize.width, 50, 0, this.appSize.height - 50, this.appSize.width, this.appSize.height))
-    this.walls.push(new Wall(this.ctx, 50, this.appSize.height, 0, 0, this.appSize.width, this.appSize.height))
-    this.walls.push(new Wall(this.ctx, 50, this.appSize.height, this.appSize.width - 50, 0, this.appSize.width, this.appSize.height))
-
+    this.walls.push(
+      new Wall(
+        this.ctx,
+        this.appSize.width,
+        50,
+        0,
+        this.appSize.height - 50,
+        this.appSize.width,
+        this.appSize.height
+      )
+    )
+    this.walls.push(
+      new Wall(
+        this.ctx,
+        50,
+        this.appSize.height,
+        0,
+        0,
+        this.appSize.width,
+        this.appSize.height
+      )
+    )
+    this.walls.push(
+      new Wall(
+        this.ctx,
+        50,
+        this.appSize.height,
+        this.appSize.width - 50,
+        0,
+        this.appSize.width,
+        this.appSize.height
+      )
+    )
   },
 
   start() {
@@ -57,6 +86,11 @@ const app = {
     this.player.setEventListeners()
     this.interval = setInterval(() => {
       this.clear()
+      this.walls.forEach((wall) =>
+        wall.isPlayerCollision(this.player, wall)
+          ? console.log('COLLISION!')
+          : null
+      )
       this.drawAll()
     }, 1000 / this.fps)
   },
@@ -71,6 +105,6 @@ const app = {
   },
 
   drawWalls() {
-    this.walls.forEach(wall => wall.draw())
+    this.walls.forEach((wall) => wall.draw())
   },
 }
