@@ -3,7 +3,7 @@ const app = {
   author: 'Elvira Ramírez Ponce',
   version: '1.0',
   license: undefined,
-  canvas: undefined,
+  canvasDom: undefined,
   ctx: undefined,
   appSize: {
     width: undefined,
@@ -24,8 +24,8 @@ const app = {
   },
 
   init() {
-    this.canvas = document.getElementById('game-app')
-    this.ctx = this.canvas.getContext('2d')
+    this.canvasDom = document.getElementById('game-app')
+    this.ctx = this.canvasDom.getContext('2d')
     this.setDimensions()
     this.start()
   },
@@ -33,12 +33,13 @@ const app = {
   setDimensions() {
     this.appSize.width = window.innerWidth
     this.appSize.height = window.innerHeight
-    this.canvas.width = this.appSize.width
-    this.canvas.height = this.appSize.height
+    this.canvasDom.width = this.appSize.width
+    this.canvasDom.height = this.appSize.height
   },
 
   start() {
-    this.player = new Player(this.player, this.width, this.height, this.keys)
+    this.player = new Player(this.ctx, this.appSize.width, this.appSize.height, this.keys)
+    this.player.init()
     this.interval = setInterval(() => {
       this.clear()
       this.drawAll()
