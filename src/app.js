@@ -15,13 +15,6 @@ const app = {
   player: undefined,
   enemies: [],
   obstacles: [],
-  keys: {
-    W: 87,
-    A: 65,
-    S: 83,
-    D: 68,
-    SPACE: 32
-  },
 
   init() {
     this.canvasDom = document.getElementById('game-app')
@@ -31,15 +24,16 @@ const app = {
   },
 
   setDimensions() {
-    this.appSize.width = window.innerWidth
-    this.appSize.height = window.innerHeight
+    this.appSize.width = window.innerWidth -30
+    this.appSize.height = window.innerHeight -30
     this.canvasDom.width = this.appSize.width
     this.canvasDom.height = this.appSize.height
   },
 
   start() {
-    this.player = new Player(this.ctx, this.appSize.width, this.appSize.height, this.keys)
+    this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
     this.player.init()
+    this.player.setEventListeners()
     this.interval = setInterval(() => {
       this.clear()
       this.drawAll()
