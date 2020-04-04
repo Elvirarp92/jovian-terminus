@@ -20,7 +20,7 @@ class Wall {
     )
   }
 
-  isPlayerCollision(player, wall){
+  isCollision(player, wall){
     return (player.position.x < wall.position.x + wall.size.width &&
       player.position.x + player.size.width > wall.position.x &&
       player.position.y < wall.position.y + wall.size.height &&

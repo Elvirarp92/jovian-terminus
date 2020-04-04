@@ -27,18 +27,20 @@ class Enemy extends Player {
   }
 
   /*actionArray is an array of objects, where every object follows this format:
-  {name: move/rotate/shoot,
+  {name: move/rotate/shoot/wait,
   desiredDirection: undefined/"N"/"S"/"E"/"W" - relevant only for rotations}   */
 
   doAction(action) {
     switch (action.name) {
-      case move:
+      case "move":
         this.move(this.orientation)
         break
-      case rotate:
+      case "rotate":
         this.rotate(action.desiredDirection)
         break
-      case shoot:
+      case "shoot":
+        break
+      case "wait":
         break
     }
     this.actionCounter++

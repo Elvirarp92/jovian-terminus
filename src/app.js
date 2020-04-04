@@ -79,7 +79,33 @@ const app = {
   },
 
   setEnemies() {
-    this.enemies.push(new Enemy(this.ctx, this.appSize.width, this.appSize.height, "S", 150, 150, 25, null))
+    this.enemies.push(
+      new Enemy(
+        this.ctx,
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        200,
+        200,
+        15,
+        [
+          { name: 'move' },
+          { name: 'wait' },
+          { name: 'move' },
+          { name: 'wait' },
+          { name: 'rotate', desiredDirection: 'N' },
+          { name: 'wait' },
+          { name: 'move' },
+          { name: 'wait' },
+          { name: 'move' },
+          { name: 'wait' },
+          { name: 'move' },
+          { name: 'wait' },
+          { name: 'rotate', desiredDirection: 'S' },
+          { name: 'wait' },
+        ]
+      )
+    )
   },
 
   start() {
@@ -92,10 +118,15 @@ const app = {
     this.interval = setInterval(() => {
       this.clear()
       this.walls.forEach((wall) =>
-        wall.isPlayerCollision(this.player, wall)
-          ? this.player.bump()
-          : null
+        wall.isCollision(this.player, wall) ? this.player.bump() : null
       )
+      this.walls.forEach((wall) => this.enemies.forEach((enemy)=> wall.isCollision(enemy, wall) ? enemy.bump(): null ))
+      this.enemies.forEach((enemy) => {
+        enemy.actionCounter > enemy.behavior.length - 1
+          ? (enemy.actionCounter = 0)
+          : null
+        enemy.doAction(enemy.behavior[enemy.actionCounter])
+      })
       this.drawAll()
     }, 1000 / this.fps)
   },
@@ -116,5 +147,5 @@ const app = {
 
   drawEnemies() {
     this.enemies.forEach((enemy) => enemy.draw())
-  }
+  },
 }
