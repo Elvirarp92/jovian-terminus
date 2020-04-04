@@ -3,7 +3,7 @@ const app = {
   author: 'Elvira Ramírez Ponce',
   version: '1.0',
   license: undefined,
-  canvasDom: undefined,
+  canvasDom: document.getElementById('game-app'),
   ctx: undefined,
   appSize: {
     width: undefined,
@@ -17,7 +17,6 @@ const app = {
   enemies: [],
 
   init() {
-    this.canvasDom = document.getElementById('game-app')
     this.ctx = this.canvasDom.getContext('2d')
     this.setDimensions()
     this.start()
@@ -79,67 +78,7 @@ const app = {
   },
 
   setEnemies() {
-    this.enemies.push(
-      new Enemy(
-        this.ctx,
-        this.appSize.width,
-        this.appSize.height,
-        'S',
-        200,
-        200,
-        25,
-        [
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'rotate', desiredDirection: 'N' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'move' },
-          { name: 'wait' },
-          { name: 'rotate', desiredDirection: 'S' },
-        ]
-      )
-    )
+    this.enemies.push(enemy1)
   },
 
   start() {
