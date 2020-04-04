@@ -11,6 +11,13 @@ class Player {
       y: this.gameSize.height / 2 - this.size.height,
     }
 
+    this.spriteSource = {
+      n: './img/player-provisional-sprite-n.png',
+      s: './img/player-provisional-sprite-s.png',
+      e: './img/player-provisional-sprite-e.png',
+      w: './img/player-provisional-sprite-w.png',
+    }
+
     this.orientation = 'N' //N, S, E or W
 
     this.velocity = 25
@@ -19,8 +26,23 @@ class Player {
   }
 
   init() {
+    let loadSprite
+    switch (this.orientation) {
+      case 'N':
+        loadSprite = this.spriteSource.n
+        break
+      case 'S':
+        loadSprite = this.spriteSource.s
+        break
+      case 'E':
+        loadSprite = this.spriteSource.e
+        break
+      case 'W':
+        loadSprite = this.spriteSource.w
+        break
+    }
     this.image = new Image()
-    this.image.src = './img/player-provisional-sprite-n.png'
+    this.image.src = loadSprite
     this.image.onload = () =>
       this.ctx.drawImage(
         this.image,
@@ -88,39 +110,39 @@ class Player {
     switch (direction) {
       case 'N':
         this.orientation = 'N'
-        this.image.src = './img/player-provisional-sprite-n.png'
+        this.image.src = this.spriteSource.n
         break
 
       case 'S':
         this.orientation = 'S'
-        this.image.src = './img/player-provisional-sprite-s.png'
+        this.image.src = this.spriteSource.s
         break
 
       case 'E':
         this.orientation = 'E'
-        this.image.src = './img/player-provisional-sprite-e.png'
+        this.image.src = this.spriteSource.e
         break
 
       case 'W':
         this.orientation = 'W'
-        this.image.src = './img/player-provisional-sprite-w.png'
+        this.image.src = this.spriteSource.w
         break
     }
   }
 
   //ISSUE: BUMP AT HIGH VELOCITIES HAS SOME WEIRD GRAPHICAL GHOSTING
   bump() {
-    switch(this.orientation) {
-      case "N":
+    switch (this.orientation) {
+      case 'N':
         this.position.y += this.velocity
         break
-      case "S":
+      case 'S':
         this.position.y -= this.velocity
         break
-      case "E":
+      case 'E':
         this.position.x -= this.velocity
         break
-      case "W":
+      case 'W':
         this.position.x += this.velocity
         break
     }

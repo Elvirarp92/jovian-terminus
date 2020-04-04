@@ -78,11 +78,16 @@ const app = {
     )
   },
 
+  setEnemies() {
+    this.enemies.push(new Enemy(this.ctx, this.appSize.width, this.appSize.height, "S", 150, 150, 25, null))
+  },
+
   start() {
     this.setWalls()
-    this.drawWalls()
+    this.setEnemies()
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
     this.player.init()
+    this.enemies.forEach((enemy) => enemy.init())
     this.player.setEventListeners()
     this.interval = setInterval(() => {
       this.clear()
@@ -102,9 +107,14 @@ const app = {
   drawAll() {
     this.player.draw()
     this.drawWalls()
+    this.drawEnemies()
   },
 
   drawWalls() {
     this.walls.forEach((wall) => wall.draw())
   },
+
+  drawEnemies() {
+    this.enemies.forEach((enemy) => enemy.draw())
+  }
 }
