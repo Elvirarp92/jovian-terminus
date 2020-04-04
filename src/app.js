@@ -88,7 +88,7 @@ const app = {
       this.clear()
       this.walls.forEach((wall) =>
         wall.isPlayerCollision(this.player, wall)
-          ? console.log('COLLISION!')
+          ? this.player.bump()
           : null
       )
       this.drawAll()

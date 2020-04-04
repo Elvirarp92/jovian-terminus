@@ -107,4 +107,22 @@ class Player {
         break
     }
   }
+
+  //ISSUE: BUMP AT HIGH VELOCITIES HAS SOME WEIRD GRAPHICAL GHOSTING
+  bump() {
+    switch(this.orientation) {
+      case "N":
+        this.position.y += this.velocity
+        break
+      case "S":
+        this.position.y -= this.velocity
+        break
+      case "E":
+        this.position.x -= this.velocity
+        break
+      case "W":
+        this.position.x += this.velocity
+        break
+    }
+  }
 }
