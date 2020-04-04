@@ -79,6 +79,7 @@ const app = {
 
   setEnemies() {
     this.enemies.push(enemy1)
+    this.enemies.push(enemy2)
   },
 
   start() {
