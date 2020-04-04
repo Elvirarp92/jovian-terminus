@@ -114,6 +114,7 @@ const app = {
     this.player.draw()
     this.drawWalls()
     this.drawEnemies()
+    this.player.bullets.forEach((bullet) => bullet.draw())
   },
 
   drawWalls() {

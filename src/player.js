@@ -69,9 +69,9 @@ class Player {
           this.move('E')
           break
 
-        // case 32: //SPACE
-
-        //   break;
+        case 32: //SPACE
+          this.shoot()
+          break;
       }
     }
   }
@@ -146,5 +146,9 @@ class Player {
         this.position.x += this.velocity
         break
     }
+  }
+
+  shoot() {
+    this.bullets.push(new Bullet(this.ctx, this.position.x, this.position.y, this.size.height, this.size.width, this.orientation))
   }
 }
