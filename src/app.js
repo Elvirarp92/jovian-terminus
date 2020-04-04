@@ -100,6 +100,7 @@ const app = {
           ? (enemy.actionCounter = 0)
           : null
         enemy.doAction(enemy.behavior[enemy.actionCounter])
+        enemy.isCollision(this.player, enemy) ? this.gameOver() : null
       })
       this.drawAll()
     }, 1000 / this.fps)
@@ -121,5 +122,11 @@ const app = {
 
   drawEnemies() {
     this.enemies.forEach((enemy) => enemy.draw())
+  },
+
+  gameOver() {
+    alert(`GAME OVER`)
+    document.location.reload()
+    window.clearInterval(this.interval)
   },
 }

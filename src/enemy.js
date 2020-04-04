@@ -32,17 +32,26 @@ class Enemy extends Player {
 
   doAction(action) {
     switch (action.name) {
-      case "move":
+      case 'move':
         this.move(this.orientation)
         break
-      case "rotate":
+      case 'rotate':
         this.rotate(action.desiredDirection)
         break
-      case "shoot":
+      case 'shoot':
         break
-      case "wait":
+      case 'wait':
         break
     }
     this.actionCounter++
+  }
+
+  isCollision(player, enemy) {
+    return (
+      player.position.x < enemy.position.x + enemy.size.width &&
+      player.position.x + player.size.width > enemy.position.x &&
+      player.position.y < enemy.position.y + enemy.size.height &&
+      player.position.y + player.size.height > enemy.position.y
+    )
   }
 }
