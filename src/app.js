@@ -96,9 +96,11 @@ const app = {
       )
       this.walls.forEach((wall) =>
         {this.enemies.forEach((enemy) =>
-          wall.isCollision(enemy, wall) ? enemy.bump() : null
+          {wall.isCollision(enemy, wall) ? enemy.bump() : null
+          enemy.bullets.forEach((bullet) => bullet.isCollision(bullet, wall) ? enemy.bullets.shift() : null)}
         )
-        this.player.bullets.forEach((bullet) => bullet.isCollision(bullet, wall) ? this.player.bullets.shift() : null)}
+        this.player.bullets.forEach((bullet) => bullet.isCollision(bullet, wall) ? this.player.bullets.shift() : null)
+        }
       )
       this.enemies.forEach((enemy) => {
         enemy.actionCounter > enemy.behavior.length - 1
@@ -106,6 +108,7 @@ const app = {
           : null
         enemy.doAction(enemy.behavior[enemy.actionCounter])
         enemy.isCollision(this.player, enemy) ? this.gameOver() : null
+        enemy.bullets.forEach((bullet) => bullet.isCollision(bullet, this.player) ? this.gameOver : null)
       })
       this.player.bullets.forEach((bullet) =>
         this.enemies.forEach((enemy) => {
@@ -129,6 +132,7 @@ const app = {
     this.drawWalls()
     this.drawEnemies()
     this.player.bullets.forEach((bullet) => bullet.draw())
+    this.enemies.forEach((enemy) => enemy.bullets.forEach((bullet) => bullet.draw()))
   },
 
   drawWalls() {

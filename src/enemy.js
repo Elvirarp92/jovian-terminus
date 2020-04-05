@@ -41,6 +41,7 @@ class Enemy extends Player {
         this.rotate(action.desiredDirection)
         break
       case 'shoot':
+        this.shoot()
         break
       case 'wait':
         break
