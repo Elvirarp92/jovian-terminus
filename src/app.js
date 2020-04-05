@@ -108,7 +108,7 @@ const app = {
           : null
         enemy.doAction(enemy.behavior[enemy.actionCounter])
         enemy.isCollision(this.player, enemy) ? this.gameOver() : null
-        enemy.bullets.forEach((bullet) => bullet.isCollision(bullet, this.player) ? this.gameOver : null)
+        enemy.bullets.forEach((bullet) => bullet.isCollision(bullet, this.player) ? this.gameOver() : null)
       })
       this.player.bullets.forEach((bullet) =>
         this.enemies.forEach((enemy) => {
