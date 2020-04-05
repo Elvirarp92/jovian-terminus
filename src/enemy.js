@@ -24,6 +24,8 @@ class Enemy extends Player {
 
     this.actionCounter = 0
     this.behavior = actionArray
+
+    this.isAlive = true
   }
 
   /*actionArray is an array of objects, where every object follows this format:
