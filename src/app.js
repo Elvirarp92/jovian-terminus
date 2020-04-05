@@ -95,9 +95,10 @@ const app = {
         wall.isCollision(this.player, wall) ? this.player.bump() : null
       )
       this.walls.forEach((wall) =>
-        this.enemies.forEach((enemy) =>
+        {this.enemies.forEach((enemy) =>
           wall.isCollision(enemy, wall) ? enemy.bump() : null
         )
+        this.player.bullets.forEach((bullet) => bullet.isCollision(bullet, wall) ? this.player.bullets.shift() : null)}
       )
       this.enemies.forEach((enemy) => {
         enemy.actionCounter > enemy.behavior.length - 1
@@ -109,7 +110,7 @@ const app = {
       this.player.bullets.forEach((bullet) =>
         this.enemies.forEach((enemy) => {
           if (bullet.isCollision(bullet, enemy)) {
-            app.player.bullets.shift()
+            this.player.bullets.shift()
             enemy.isAlive = false
           }
         })
