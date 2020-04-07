@@ -4,19 +4,19 @@ class Map {
     this.tileSize = 48
     this.tileset = new Image()
     this.tileset.src = './img/scifi_space_rpg_tiles.png'
-    this.tiles = tileArray
+    this.layers = tileArray
     this.tilesPerRow = 8 //number of tiles per row in our tileset pic
   }
 
-  getTile(column, row) {
-    return this.tiles[row * this.dimensions.cols + column]
+  getTile(layer, column, row) {
+    return this.layers[layer][row * this.dimensions.cols + column]
   }
 
-  isSolidTile(x, y) {
+  isSolidTile(layer, x, y) {
     let col = Math.floor(x / this.tileSize)
     let row = Math.floor(y / this.tileSize)
 
-    let tile = this.getTile(col, row)
+    let tile = this.getTile(layer, col, row)
 
     return (tile >= 41 && tile <= 43) ||
       (tile >= 49 && tile <= 51) ||

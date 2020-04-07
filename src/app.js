@@ -1,7 +1,7 @@
 let tile //not a fan of having this variable hanging around to be used on the object but what can you do
 
 const app = {
-  name: 'Escape from Jovian Terminus',
+  name: 'Jovian Terminus',
   author: 'Elvira Ramírez Ponce',
   version: '1.0',
   license: undefined,
@@ -33,21 +33,44 @@ const app = {
   },
 
   setMap() {
-    this.map = map1Layer1
+    this.map = map1
     this.setDimensions()
   },
 
   setEnemies() {
-    this.enemies.push(enemy1)
-    this.enemies.push(enemy2)
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        11*this.map.tileSize,
+        4*this.map.tileSize,
+        15,
+        enemyRoute1
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        app.canvasDom.getContext('2d'),
+        app.appSize.width,
+        app.appSize.height,
+        'W',
+        3*this.map.tileSize,
+        3*this.map.tileSize,
+        15,
+        enemyRoute2
+      )
+    )
   },
 
   start() {
     this.setMap()
-    // this.setEnemies()
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
     this.player.init()
+    this.setEnemies()
     this.enemies.forEach((enemy) => enemy.init())
+
     this.player.setEventListeners()
     this.interval = setInterval(() => {
       this.clear()
@@ -56,14 +79,14 @@ const app = {
           ? (enemy.actionCounter = 0)
           : null
         enemy.doAction(enemy.behavior[enemy.actionCounter])
-        // enemy.isCollision(this.player, enemy) ? this.gameOver() : null
-        // enemy.bullets.forEach((bullet) =>
-        //   bullet.isCollision(bullet, this.player) ? this.gameOver() : null
-        // )
+        enemy.isCollision(this.player, enemy) ? this.gameOver() : null
+        enemy.bullets.forEach((bullet) =>
+          bullet.isCharCollision(bullet, this.player) ? this.gameOver() : null
+        )
       })
       this.player.bullets.forEach((bullet) =>
         this.enemies.forEach((enemy) => {
-          if (bullet.isCollision(bullet, enemy)) {
+          if (bullet.isCharCollision(bullet, enemy)) {
             this.player.bullets.shift()
             enemy.isAlive = false
           }
@@ -79,19 +102,20 @@ const app = {
   },
 
   drawAll() {
-    this.drawMap(this.map)
+    this.drawMap(0, this.map)
     this.player.draw()
     this.drawEnemies()
+    this.drawMap(1, this.map)
     this.player.bullets.forEach((bullet) => bullet.draw())
     this.enemies.forEach((enemy) =>
       enemy.bullets.forEach((bullet) => bullet.draw())
     )
   },
 
-  drawMap(map) {
+  drawMap(layer, map) {
     for (let c = 0; c < map.dimensions.cols; c++) {
       for (let r = 0; r < map.dimensions.rows; r++) {
-        tile = map.getTile(c, r)
+        tile = map.getTile(layer, c, r)
         if (tile != 0) {
           this.ctx.drawImage(
             map.tileset, // image

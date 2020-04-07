@@ -7,8 +7,8 @@ class Player {
     this.image = undefined
 
     this.position = {
-      x: 10 * app.map.tileSize,
-      y: 3 * app.map.tileSize,
+      x: 21 * app.map.tileSize,
+      y: 16 * app.map.tileSize,
     }
 
     this.spriteSource = {
@@ -92,6 +92,12 @@ class Player {
     switch (direction) {
       case 'N':
         !app.map.isSolidTile(
+          0,
+          this.position.x,
+          (this.position.y -= this.velocity)
+        ) &&
+        !app.map.isSolidTile(
+          1,
           this.position.x,
           (this.position.y -= this.velocity)
         )
@@ -100,6 +106,12 @@ class Player {
         break
       case 'S':
         !app.map.isSolidTile(
+          0,
+          this.position.x,
+          (this.position.y += this.velocity)
+        ) &&
+        !app.map.isSolidTile(
+          1,
           this.position.x,
           (this.position.y += this.velocity)
         )
@@ -108,6 +120,12 @@ class Player {
         break
       case 'E':
         !app.map.isSolidTile(
+          0,
+          (this.position.x += this.velocity),
+          this.position.y
+        ) &&
+        !app.map.isSolidTile(
+          1,
           (this.position.x += this.velocity),
           this.position.y
         )
@@ -116,6 +134,12 @@ class Player {
         break
       case 'W':
         !app.map.isSolidTile(
+          0,
+          (this.position.x -= this.velocity),
+          this.position.y
+        ) &&
+        !app.map.isSolidTile(
+          1,
           (this.position.x -= this.velocity),
           this.position.y
         )
@@ -181,12 +205,12 @@ class Player {
     )
   }
 
-  // isCollision(player, target) {
-  //   return (
-  //     player.position.x < target.position.x + target.size.width &&
-  //     player.position.x + player.size.width > target.position.x &&
-  //     player.position.y < target.position.y + target.size.height &&
-  //     player.position.y + player.size.height > target.position.y
-  //   )
-  // }
+  isCollision(player, target) {
+    return (
+      player.position.x < target.position.x + target.size.width &&
+      player.position.x + player.size.width > target.position.x &&
+      player.position.y < target.position.y + target.size.height &&
+      player.position.y + player.size.height > target.position.y
+    )
+  }
 }

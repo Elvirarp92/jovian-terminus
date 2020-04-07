@@ -1,7 +1,17 @@
 class Bullet {
-  constructor(ctx, shooterPosX, shooterPosY, shooterHeight, shooterWidth, direction){
+  constructor(
+    ctx,
+    shooterPosX,
+    shooterPosY,
+    shooterHeight,
+    shooterWidth,
+    direction
+  ) {
     this.ctx = ctx
-    this.position = {x: shooterPosX + shooterWidth/2, y: shooterPosY + shooterHeight/2}
+    this.position = {
+      x: shooterPosX + shooterWidth / 2,
+      y: shooterPosY + shooterHeight / 2,
+    }
     this.direction = direction
     this.radius = 5
     this.velocity = 25
@@ -9,8 +19,8 @@ class Bullet {
 
   draw() {
     this.ctx.beginPath()
-    this.ctx.fillStyle = "#000000"
-    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI*2)
+    this.ctx.fillStyle = '#000000'
+    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
     this.ctx.fill()
     this.ctx.closePath()
     this.move(this.direction)
@@ -33,4 +43,12 @@ class Bullet {
     }
   }
 
+  isCharCollision(bullet, target) {
+      return (
+        bullet.position.x < target.position.x + target.size.width &&
+        bullet.position.x > target.position.x &&
+        bullet.position.y < target.position.y + target.size.height &&
+        bullet.position.y > target.position.y
+      )
+  }
 }
