@@ -1,3 +1,5 @@
+let tile //not a fan of having this variable hanging around to be used on the object but what can you do
+
 const app = {
   name: 'Escape from Jovian Terminus',
   author: 'Elvira Ramírez Ponce',
@@ -13,68 +15,26 @@ const app = {
   interval: undefined,
   background: undefined,
   player: undefined,
+  map: undefined,
   walls: [],
   enemies: [],
 
   init() {
     this.ctx = this.canvasDom.getContext('2d')
-    this.setDimensions()
+
     this.start()
   },
 
   setDimensions() {
-    this.appSize.width = window.innerWidth - 10
-    this.appSize.height = window.innerHeight - 10
+    this.appSize.width = this.map.dimensions.cols * this.map.tileSize
+    this.appSize.height = this.map.dimensions.rows * this.map.tileSize
     this.canvasDom.width = this.appSize.width
     this.canvasDom.height = this.appSize.height
   },
 
-  //free range organic handmade primitive walls
-  setWalls() {
-    this.walls.push(
-      new Wall(
-        this.ctx,
-        this.appSize.width,
-        50,
-        0,
-        0,
-        this.appSize.width,
-        this.appSize.height
-      )
-    )
-    this.walls.push(
-      new Wall(
-        this.ctx,
-        this.appSize.width,
-        50,
-        0,
-        this.appSize.height - 50,
-        this.appSize.width,
-        this.appSize.height
-      )
-    )
-    this.walls.push(
-      new Wall(
-        this.ctx,
-        50,
-        this.appSize.height,
-        0,
-        0,
-        this.appSize.width,
-        this.appSize.height
-      )
-    )
-    this.walls.push(
-      new Wall(
-        this.ctx,
-        50,
-        this.appSize.height,
-        this.appSize.width - 50,
-        0,
-        this.appSize.width,
-        this.appSize.height
-      )
-    )
+  setMap() {
+    this.map = map1Layer1
+    this.setDimensions()
   },
 
   setEnemies() {
@@ -83,7 +43,7 @@ const app = {
   },
 
   start() {
-    this.setWalls()
+    this.setMap()
     this.setEnemies()
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
     this.player.init()
@@ -91,24 +51,15 @@ const app = {
     this.player.setEventListeners()
     this.interval = setInterval(() => {
       this.clear()
-      this.walls.forEach((wall) =>
-        wall.isCollision(this.player, wall) ? this.player.bump() : null
-      )
-      this.walls.forEach((wall) =>
-        {this.enemies.forEach((enemy) =>
-          {wall.isCollision(enemy, wall) ? enemy.bump() : null
-          enemy.bullets.forEach((bullet) => bullet.isCollision(bullet, wall) ? enemy.bullets.shift() : null)}
-        )
-        this.player.bullets.forEach((bullet) => bullet.isCollision(bullet, wall) ? this.player.bullets.shift() : null)
-        }
-      )
       this.enemies.forEach((enemy) => {
         enemy.actionCounter > enemy.behavior.length - 1
           ? (enemy.actionCounter = 0)
           : null
         enemy.doAction(enemy.behavior[enemy.actionCounter])
         enemy.isCollision(this.player, enemy) ? this.gameOver() : null
-        enemy.bullets.forEach((bullet) => bullet.isCollision(bullet, this.player) ? this.gameOver() : null)
+        enemy.bullets.forEach((bullet) =>
+          bullet.isCollision(bullet, this.player) ? this.gameOver() : null
+        )
       })
       this.player.bullets.forEach((bullet) =>
         this.enemies.forEach((enemy) => {
@@ -128,15 +79,35 @@ const app = {
   },
 
   drawAll() {
+    this.drawMap(this.map)
     this.player.draw()
-    this.drawWalls()
     this.drawEnemies()
     this.player.bullets.forEach((bullet) => bullet.draw())
-    this.enemies.forEach((enemy) => enemy.bullets.forEach((bullet) => bullet.draw()))
+    this.enemies.forEach((enemy) =>
+      enemy.bullets.forEach((bullet) => bullet.draw())
+    )
   },
 
-  drawWalls() {
-    this.walls.forEach((wall) => wall.draw())
+  drawMap(map) {
+    for (let c = 0; c < map.dimensions.cols; c++) {
+      for (let r = 0; r < map.dimensions.rows; r++) {
+        tile = map.getTile(c, r)
+        if (tile != 0) {
+          console.log(`tile equals ${tile}, in ${map.tiles} [${c}] [${r}]`)
+          this.ctx.drawImage(
+            map.tileset, // image
+            Math.floor((tile - 1) % map.tilesPerRow) * map.tileSize, //SourceX
+            Math.floor((tile - 1) / map.tilesPerRow) * map.tileSize, //SourceY
+            map.tileSize, //Source Width
+            map.tileSize, //Source Height
+            c * map.tileSize, //TargetX
+            r * map.tileSize, //TargetY
+            map.tileSize, //Target width
+            map.tileSize //Target Height
+          )
+        }
+      }
+    }
   },
 
   drawEnemies() {
