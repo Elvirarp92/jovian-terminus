@@ -5,24 +5,79 @@ const app = {
   author: 'Elvira Ramírez Ponce',
   version: '1.0',
   license: undefined,
+
   canvasDom: document.getElementById('game-app'),
   ctx: undefined,
   appSize: {
     width: undefined,
     height: undefined,
   },
+
   fps: 60,
   interval: undefined,
+
   background: undefined,
   player: undefined,
+
   map: undefined,
-  walls: [],
   enemies: [],
 
   init() {
     this.ctx = this.canvasDom.getContext('2d')
-
     this.start()
+  },
+
+  start() {
+    this.setMap()
+
+    this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
+    this.player.init()
+
+    this.setEnemies()
+    this.enemies.forEach((enemy) => enemy.init())
+
+    this.player.setEventListeners()
+
+    this.interval = setInterval(() => {
+
+      this.clear()
+
+      this.enemies.forEach((enemy) => {
+
+        enemy.actionCounter > enemy.behavior.length - 1
+          ? (enemy.actionCounter = 0)
+          : null
+
+        enemy.doAction(enemy.behavior[enemy.actionCounter])
+
+        enemy.isCollision(this.player, enemy) ? this.gameOver() : null
+
+        enemy.bullets.forEach((bullet) =>
+          bullet.isCharCollision(bullet, this.player) ? this.gameOver() : null
+        )
+      })
+
+      this.player.bullets.forEach((bullet) =>
+        this.enemies.forEach((enemy) => {
+          if (bullet.isCharCollision(bullet, enemy)) {
+
+            this.player.bullets.shift()
+            enemy.isAlive = false
+
+          }
+        })
+      )
+
+      this.enemies = this.enemies.filter((enemy) => enemy.isAlive == true)
+
+      this.drawAll()
+
+    }, 1000 / this.fps)
+  },
+
+  setMap() {
+    this.map = map1
+    this.setDimensions()
   },
 
   setDimensions() {
@@ -32,11 +87,6 @@ const app = {
     this.canvasDom.height = this.appSize.height
   },
 
-  setMap() {
-    this.map = map1
-    this.setDimensions()
-  },
-
   setEnemies() {
     this.enemies.push(
       new Enemy(
@@ -44,8 +94,8 @@ const app = {
         this.appSize.width,
         this.appSize.height,
         'S',
-        11*this.map.tileSize,
-        4*this.map.tileSize,
+        11 * this.map.tileSize,
+        4 * this.map.tileSize,
         15,
         enemyRoute1
       )
@@ -56,45 +106,12 @@ const app = {
         app.appSize.width,
         app.appSize.height,
         'W',
-        3*this.map.tileSize,
-        3*this.map.tileSize,
+        3 * this.map.tileSize,
+        3 * this.map.tileSize,
         15,
         enemyRoute2
       )
     )
-  },
-
-  start() {
-    this.setMap()
-    this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
-    this.player.init()
-    this.setEnemies()
-    this.enemies.forEach((enemy) => enemy.init())
-
-    this.player.setEventListeners()
-    this.interval = setInterval(() => {
-      this.clear()
-      this.enemies.forEach((enemy) => {
-        enemy.actionCounter > enemy.behavior.length - 1
-          ? (enemy.actionCounter = 0)
-          : null
-        enemy.doAction(enemy.behavior[enemy.actionCounter])
-        enemy.isCollision(this.player, enemy) ? this.gameOver() : null
-        enemy.bullets.forEach((bullet) =>
-          bullet.isCharCollision(bullet, this.player) ? this.gameOver() : null
-        )
-      })
-      this.player.bullets.forEach((bullet) =>
-        this.enemies.forEach((enemy) => {
-          if (bullet.isCharCollision(bullet, enemy)) {
-            this.player.bullets.shift()
-            enemy.isAlive = false
-          }
-        })
-      )
-      this.enemies = this.enemies.filter((enemy) => enemy.isAlive == true)
-      this.drawAll()
-    }, 1000 / this.fps)
   },
 
   clear() {
@@ -102,20 +119,28 @@ const app = {
   },
 
   drawAll() {
-    this.drawMap(0, this.map)
+
+    this.drawMap(0, this.map) //base layer
+
     this.player.draw()
     this.drawEnemies()
-    this.drawMap(1, this.map)
+
+    this.drawMap(1, this.map) //upper layer
+
     this.player.bullets.forEach((bullet) => bullet.draw())
+
     this.enemies.forEach((enemy) =>
       enemy.bullets.forEach((bullet) => bullet.draw())
     )
   },
 
   drawMap(layer, map) {
+
     for (let c = 0; c < map.dimensions.cols; c++) {
       for (let r = 0; r < map.dimensions.rows; r++) {
+
         tile = map.getTile(layer, c, r)
+        
         if (tile != 0) {
           this.ctx.drawImage(
             map.tileset, // image
