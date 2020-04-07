@@ -48,13 +48,4 @@ class Enemy extends Player {
     }
     this.actionCounter++
   }
-
-  isCollision(player, enemy) {
-    return (
-      player.position.x < enemy.position.x + enemy.size.width &&
-      player.position.x + player.size.width > enemy.position.x &&
-      player.position.y < enemy.position.y + enemy.size.height &&
-      player.position.y + player.size.height > enemy.position.y
-    )
-  }
 }

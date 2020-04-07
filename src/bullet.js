@@ -33,13 +33,4 @@ class Bullet {
     }
   }
 
-  isCollision(bullet, target) {
-    return (
-      bullet.position.x < target.position.x + target.size.width &&
-      bullet.position.x > target.position.x &&
-      bullet.position.y < target.position.y + target.size.height &&
-      bullet.position.y > target.position.y
-    )
-  }
-
 }

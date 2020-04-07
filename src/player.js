@@ -7,8 +7,8 @@ class Player {
     this.image = undefined
 
     this.position = {
-      x: this.gameSize.width / 2 - this.size.width,
-      y: this.gameSize.height / 2 - this.size.height,
+      x: 10 * app.map.tileSize,
+      y: 3 * app.map.tileSize,
     }
 
     this.spriteSource = {
@@ -20,7 +20,7 @@ class Player {
 
     this.orientation = 'N' //N, S, E or W
 
-    this.velocity = 25
+    this.velocity = 15
 
     this.bullets = []
   }
@@ -71,7 +71,7 @@ class Player {
 
         case 32: //SPACE
           this.shoot()
-          break;
+          break
       }
     }
   }
@@ -91,16 +91,36 @@ class Player {
 
     switch (direction) {
       case 'N':
-        this.position.y -= this.velocity
+        !app.map.isSolidTile(
+          this.position.x,
+          (this.position.y -= this.velocity)
+        )
+          ? (this.position.y -= this.velocity)
+          : this.bump()
         break
       case 'S':
-        this.position.y += this.velocity
+        !app.map.isSolidTile(
+          this.position.x,
+          (this.position.y += this.velocity)
+        )
+          ? (this.position.y += this.velocity)
+          : this.bump()
         break
       case 'E':
-        this.position.x += this.velocity
+        !app.map.isSolidTile(
+          (this.position.x += this.velocity),
+          this.position.y
+        )
+          ? (this.position.x += this.velocity)
+          : this.bump()
         break
       case 'W':
-        this.position.x -= this.velocity
+        !app.map.isSolidTile(
+          (this.position.x -= this.velocity),
+          this.position.y
+        )
+          ? (this.position.x -= this.velocity)
+          : this.bump()
         break
     }
   }
@@ -149,6 +169,24 @@ class Player {
   }
 
   shoot() {
-    this.bullets.push(new Bullet(this.ctx, this.position.x, this.position.y, this.size.height, this.size.width, this.orientation))
+    this.bullets.push(
+      new Bullet(
+        this.ctx,
+        this.position.x,
+        this.position.y,
+        this.size.height,
+        this.size.width,
+        this.orientation
+      )
+    )
   }
+
+  // isCollision(player, target) {
+  //   return (
+  //     player.position.x < target.position.x + target.size.width &&
+  //     player.position.x + player.size.width > target.position.x &&
+  //     player.position.y < target.position.y + target.size.height &&
+  //     player.position.y + player.size.height > target.position.y
+  //   )
+  // }
 }

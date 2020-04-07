@@ -44,7 +44,7 @@ const app = {
 
   start() {
     this.setMap()
-    this.setEnemies()
+    // this.setEnemies()
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
     this.player.init()
     this.enemies.forEach((enemy) => enemy.init())
@@ -56,10 +56,10 @@ const app = {
           ? (enemy.actionCounter = 0)
           : null
         enemy.doAction(enemy.behavior[enemy.actionCounter])
-        enemy.isCollision(this.player, enemy) ? this.gameOver() : null
-        enemy.bullets.forEach((bullet) =>
-          bullet.isCollision(bullet, this.player) ? this.gameOver() : null
-        )
+        // enemy.isCollision(this.player, enemy) ? this.gameOver() : null
+        // enemy.bullets.forEach((bullet) =>
+        //   bullet.isCollision(bullet, this.player) ? this.gameOver() : null
+        // )
       })
       this.player.bullets.forEach((bullet) =>
         this.enemies.forEach((enemy) => {
@@ -93,7 +93,6 @@ const app = {
       for (let r = 0; r < map.dimensions.rows; r++) {
         tile = map.getTile(c, r)
         if (tile != 0) {
-          console.log(`tile equals ${tile}, in ${map.tiles} [${c}] [${r}]`)
           this.ctx.drawImage(
             map.tileset, // image
             Math.floor((tile - 1) % map.tilesPerRow) * map.tileSize, //SourceX
