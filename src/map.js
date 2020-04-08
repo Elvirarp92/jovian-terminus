@@ -13,8 +13,8 @@ class Map {
   }
 
   isSolidTile(layer, x, y) {
-    let col = Math.floor(x / this.tileSize)
-    let row = Math.floor(y / this.tileSize)
+    let col = Math.round(x / this.tileSize)
+    let row = Math.round(y / this.tileSize)
 
     let tile = this.getTile(layer, col, row)
 

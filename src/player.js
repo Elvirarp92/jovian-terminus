@@ -2,7 +2,7 @@ class Player {
   constructor(ctx, gameWidth, gameHeight) {
     this.ctx = ctx
     this.gameSize = { width: gameWidth, height: gameHeight }
-    this.size = { width: 32, height: 32 }
+    this.size = { width: 48, height: 48 }
 
     this.image = undefined
 
@@ -54,7 +54,7 @@ class Player {
   }
 
   setEventListeners() {
-    document.onkeydown = (e) => {
+    document.onkeyup = (e) => {
       switch (e.keyCode) {
         case 87: //W
           this.move('N')
@@ -174,7 +174,6 @@ class Player {
     }
   }
 
-  //ISSUE: BUMP AT HIGH VELOCITIES HAS SOME WEIRD GRAPHICAL GHOSTING
   bump() {
     switch (this.orientation) {
       case 'N':
