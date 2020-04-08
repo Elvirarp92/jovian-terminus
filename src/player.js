@@ -63,7 +63,7 @@ class Player {
     }
   }
 
-  draw(framesCounter) {
+  draw() {
     this.ctx.drawImage(
       this.image,
       this.image.frameIndex * this.size.width,
@@ -75,17 +75,15 @@ class Player {
       this.size.height,
       this.size.width
     )
-    
-    this.animate(framesCounter)
-
+    this.animate(app.framesCounter)
   }
 
   animate(framesCounter) {
     if (framesCounter % this.image.frames == 0) {
-      this.image.framesIndex++
+      this.image.frameIndex++
     }
-    if (this.image.framesIndex > this.image.frames - 1) {
-      this.image.framesIndex = 0
+    if (this.image.frameIndex > this.image.frames - 1) {
+      this.image.frameIndex = 0
     }
   }
 
@@ -152,7 +150,6 @@ class Player {
     }
   }
 
-  //just charge the technical debt to my credit card
   rotate(direction) {
     switch (direction) {
       case 'N':

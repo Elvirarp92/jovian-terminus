@@ -15,12 +15,7 @@ class Enemy extends Player {
     this.orientation = orientation
     this.position = { x: posX, y: posY }
 
-    this.spriteSource = {
-      n: './img/enemy-provisional-sprite-n.png',
-      s: './img/enemy-provisional-sprite-s.png',
-      e: './img/enemy-provisional-sprite-e.png',
-      w: './img/enemy-provisional-sprite-w.png',
-    }
+    this.spriteSource = "./img/skeleton-baddie.png"
 
     this.actionCounter = 0
     this.behavior = actionArray
