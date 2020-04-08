@@ -2,7 +2,7 @@ class Player {
   constructor(ctx, gameWidth, gameHeight) {
     this.ctx = ctx
     this.gameSize = { width: gameWidth, height: gameHeight }
-    this.size = { width: 48, height: 48 }
+    this.size = { width: 64, height: 64 }
 
     this.image = undefined
 
@@ -11,12 +11,8 @@ class Player {
       y: 16 * app.map.tileSize,
     }
 
-    this.spriteSource = {
-      n: './img/player-provisional-sprite-n.png',
-      s: './img/player-provisional-sprite-s.png',
-      e: './img/player-provisional-sprite-e.png',
-      w: './img/player-provisional-sprite-w.png',
-    }
+    this.spriteSource = './img/protag.png'
+    this.spritesheetY = 0
 
     this.orientation = 'N' //N, S, E or W
 
@@ -26,26 +22,17 @@ class Player {
   }
 
   init() {
-    let loadSprite
-    switch (this.orientation) {
-      case 'N':
-        loadSprite = this.spriteSource.n
-        break
-      case 'S':
-        loadSprite = this.spriteSource.s
-        break
-      case 'E':
-        loadSprite = this.spriteSource.e
-        break
-      case 'W':
-        loadSprite = this.spriteSource.w
-        break
-    }
     this.image = new Image()
-    this.image.src = loadSprite
+    this.image.src = this.spriteSource
+    this.image.frames = 3
+    this.image.frameIndex = 0
     this.image.onload = () =>
       this.ctx.drawImage(
         this.image,
+        0,
+        0,
+        64,
+        64,
         this.position.x,
         this.position.y,
         this.size.width,
@@ -76,14 +63,30 @@ class Player {
     }
   }
 
-  draw() {
+  draw(framesCounter) {
     this.ctx.drawImage(
       this.image,
+      this.image.frameIndex * this.size.width,
+      this.spritesheetY * this.size.height,
+      this.size.height,
+      this.size.width,
       this.position.x,
       this.position.y,
-      this.size.width,
-      this.size.height
+      this.size.height,
+      this.size.width
     )
+    
+    this.animate(framesCounter)
+
+  }
+
+  animate(framesCounter) {
+    if (framesCounter % this.image.frames == 0) {
+      this.image.framesIndex++
+    }
+    if (this.image.framesIndex > this.image.frames - 1) {
+      this.image.framesIndex = 0
+    }
   }
 
   move(direction) {
@@ -154,22 +157,22 @@ class Player {
     switch (direction) {
       case 'N':
         this.orientation = 'N'
-        this.image.src = this.spriteSource.n
+        this.spritesheetY = 0
         break
 
       case 'S':
         this.orientation = 'S'
-        this.image.src = this.spriteSource.s
+        this.spritesheetY = 2
         break
 
       case 'E':
         this.orientation = 'E'
-        this.image.src = this.spriteSource.e
+        this.spritesheetY = 3
         break
 
       case 'W':
         this.orientation = 'W'
-        this.image.src = this.spriteSource.w
+        this.spritesheetY = 1
         break
     }
   }

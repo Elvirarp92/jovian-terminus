@@ -91,30 +91,30 @@ const app = {
   },
 
   setEnemies() {
-    this.enemies.push(
-      new Enemy(
-        this.canvasDom.getContext('2d'),
-        this.appSize.width,
-        this.appSize.height,
-        'S',
-        11 * this.map.tileSize,
-        4 * this.map.tileSize,
-        15,
-        enemyRoute1
-      )
-    )
-    this.enemies.push(
-      new Enemy(
-        app.canvasDom.getContext('2d'),
-        app.appSize.width,
-        app.appSize.height,
-        'W',
-        3 * this.map.tileSize,
-        3 * this.map.tileSize,
-        15,
-        enemyRoute2
-      )
-    )
+    // this.enemies.push(
+    //   new Enemy(
+    //     this.canvasDom.getContext('2d'),
+    //     this.appSize.width,
+    //     this.appSize.height,
+    //     'S',
+    //     11 * this.map.tileSize,
+    //     4 * this.map.tileSize,
+    //     15,
+    //     enemyRoute1
+    //   )
+    // )
+    // this.enemies.push(
+    //   new Enemy(
+    //     app.canvasDom.getContext('2d'),
+    //     app.appSize.width,
+    //     app.appSize.height,
+    //     'W',
+    //     3 * this.map.tileSize,
+    //     3 * this.map.tileSize,
+    //     15,
+    //     enemyRoute2
+    //   )
+    // )
   },
 
   clear() {
@@ -124,7 +124,7 @@ const app = {
   drawAll() {
     this.drawMap(0, this.map) //base layer
     this.goal.draw(this.framesCounter)
-    this.player.draw()
+    this.player.draw(this.framesCounter)
     this.drawEnemies()
 
     this.drawMap(1, this.map) //upper layer
@@ -159,7 +159,7 @@ const app = {
   },
 
   drawEnemies() {
-    this.enemies.forEach((enemy) => enemy.draw())
+    this.enemies.forEach((enemy) => enemy.draw(this.framesCounter))
   },
 
 
