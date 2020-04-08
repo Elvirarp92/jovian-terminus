@@ -167,17 +167,18 @@ const app = {
   },
 
 
-  //placeholder until i figure out how to make an actual game over screen
   gameOver(mode) {
     switch (mode) {
       case "loss":
-        alert(`GAME OVER`)
+        this.bgMusic.pause()
+        window.clearInterval(this.interval)
+        gameOverScreen.style.display = "block"
         break
       case "win":
-        alert(`You managed to escape!`)
+        this.bgMusic.pause()
+        window.clearInterval(this.interval)
+        victoryScreen.style.display = "block"
         break
     }
-    document.location.reload()
-    window.clearInterval(this.interval)
   }
 }
