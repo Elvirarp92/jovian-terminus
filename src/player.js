@@ -212,4 +212,15 @@ class Player {
       player.position.y + player.size.height > target.position.y
     )
   }
+
+  removeBullet(bullet) {
+    if (
+      bullet.position.x < 0 ||
+      bullet.position.x > this.gameWidth ||
+      bullet.position.y < 0 ||
+      bullet.position.y > this.gameHeight
+    ) {
+      this.bullets.shift()
+    }
+  }
 }

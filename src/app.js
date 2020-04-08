@@ -39,11 +39,9 @@ const app = {
     this.player.setEventListeners()
 
     this.interval = setInterval(() => {
-
       this.clear()
 
       this.enemies.forEach((enemy) => {
-
         enemy.actionCounter > enemy.behavior.length - 1
           ? (enemy.actionCounter = 0)
           : null
@@ -52,26 +50,25 @@ const app = {
 
         enemy.isCollision(this.player, enemy) ? this.gameOver() : null
 
-        enemy.bullets.forEach((bullet) =>
+        enemy.bullets.forEach((bullet) => {
           bullet.isCharCollision(bullet, this.player) ? this.gameOver() : null
-        )
+          enemy.removeBullet(bullet)
+        })
       })
 
-      this.player.bullets.forEach((bullet) =>
+      this.player.bullets.forEach((bullet) => {
         this.enemies.forEach((enemy) => {
           if (bullet.isCharCollision(bullet, enemy)) {
-
             this.player.bullets.shift()
             enemy.isAlive = false
-
           }
         })
-      )
+        this.player.removeBullet(bullet)
+      })
 
       this.enemies = this.enemies.filter((enemy) => enemy.isAlive == true)
 
       this.drawAll()
-
     }, 1000 / this.fps)
   },
 
@@ -119,7 +116,6 @@ const app = {
   },
 
   drawAll() {
-
     this.drawMap(0, this.map) //base layer
 
     this.player.draw()
@@ -135,12 +131,10 @@ const app = {
   },
 
   drawMap(layer, map) {
-
     for (let c = 0; c < map.dimensions.cols; c++) {
       for (let r = 0; r < map.dimensions.rows; r++) {
-
         tile = map.getTile(layer, c, r)
-        
+
         if (tile != 0) {
           this.ctx.drawImage(
             map.tileset, // image
