@@ -13,7 +13,8 @@ const app = {
     height: undefined,
   },
 
-  fps: 60,
+  fps: 30,
+  framesCounter: 0,
   interval: undefined,
 
   background: undefined,
@@ -44,7 +45,7 @@ const app = {
 
     this.interval = setInterval(() => {
       this.clear()
-
+      this.framesCounter > 5000 ? this.framesCounter = 0 : null
       this.player.isCollision(this.player, this.goal) ? this.gameOver("win") : null
 
       this.enemies.forEach((enemy) => {
@@ -122,7 +123,7 @@ const app = {
 
   drawAll() {
     this.drawMap(0, this.map) //base layer
-    this.goal.draw()
+    this.goal.draw(this.framesCounter)
     this.player.draw()
     this.drawEnemies()
 
