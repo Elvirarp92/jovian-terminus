@@ -24,12 +24,16 @@ const app = {
   goal: undefined,
   enemies: [],
 
+  bgMusic: undefined,
+
   init() {
     this.ctx = this.canvasDom.getContext('2d')
+    this.bgMusic = new Audio("./audio/horror-ambiance.wav")
     this.start()
   },
 
   start() {
+    this.bgMusic.play()
     this.setMap()
 
     this.goal = new Goal(this.ctx, 20*48, 0)

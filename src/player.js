@@ -19,10 +19,13 @@ class Player {
     this.velocity = 15
 
     this.bullets = []
+
+    this.laserSound = undefined
   }
 
   init() {
     this.image = new Image()
+    this.laserSound = new Audio("./audio/NFF-laser-gun.wav")
     this.image.src = this.spriteSource
     this.image.frames = 9
     this.image.frameIndex = 0
@@ -192,6 +195,7 @@ class Player {
   }
 
   shoot() {
+    this.laserSound.play()
     this.bullets.push(
       new Bullet(
         this.ctx,
