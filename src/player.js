@@ -12,7 +12,7 @@ class Player {
     }
 
     this.spriteSource = './img/protag.png'
-    this.spritesheetY = 0
+    this.spritesheetY = 8
 
     this.orientation = 'N' //N, S, E or W
 
@@ -24,15 +24,15 @@ class Player {
   init() {
     this.image = new Image()
     this.image.src = this.spriteSource
-    this.image.frames = 3
+    this.image.frames = 9
     this.image.frameIndex = 0
     this.image.onload = () =>
       this.ctx.drawImage(
         this.image,
-        0,
-        0,
-        64,
-        64,
+        this.image.frameIndex * this.size.width,
+        this.spritesheetY * this.size.height,
+        this.size.height,
+        this.size.width,
         this.position.x,
         this.position.y,
         this.size.width,
@@ -154,22 +154,22 @@ class Player {
     switch (direction) {
       case 'N':
         this.orientation = 'N'
-        this.spritesheetY = 0
+        this.spritesheetY = 8
         break
 
       case 'S':
         this.orientation = 'S'
-        this.spritesheetY = 2
+        this.spritesheetY = 10
         break
 
       case 'E':
         this.orientation = 'E'
-        this.spritesheetY = 3
+        this.spritesheetY = 11
         break
 
       case 'W':
         this.orientation = 'W'
-        this.spritesheetY = 1
+        this.spritesheetY = 9
         break
     }
   }
