@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/styles.css" />
     <title>Jovian Terminus</title>
   </head>
   <body>
@@ -12,6 +17,10 @@
         padding: 0;
       }
     </style>
+    <div id="start-screen">
+      <h1>Jovian Terminus</h1>
+      <button id="start-button">Start</button>
+    </div>
     <canvas id="game-app"></canvas>
     <script src="./src/map.js"></script>
     <script src="./src/map-list.js"></script>
@@ -23,6 +32,12 @@
     <script src="./src/app.js"></script>
     <script src="./src/enemy-list.js"></script>
     <script src="./src/index.js"></script>
-    <small>Sprites made in Universal LPC Spritesheet Generator. Bullets by Master484. Tileset by Hyptosis. Goal arrow by yours truly. Sound effects from noiseforfun.com</small>
+    <div id="game-over"></div>
+    <small
+      >Sprites made in Universal LPC Spritesheet Generator. Bullets by
+      Master484. Tileset by Hyptosis. Goal arrow by yours truly. Sound effects
+      from noiseforfun.com. Background sound by Klankbeeld on
+      freesound.org</small
+    >
   </body>
 </html>

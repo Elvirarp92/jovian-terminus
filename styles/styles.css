@@ -1,0 +1,26 @@
+body {
+  background-color: #090a10;
+  font-family: 'Orbitron', sans-serif;
+  color: whitesmoke;
+}
+
+#game-app{
+  display: none;
+  margin: 0 auto;
+}
+
+#start-screen {
+  text-align: center;
+  margin: 160px;
+}
+
+#game-over {
+  display: none;
+}
+
+#start-button {
+  color: whitesmoke;
+  background-color: #090a10;
+  padding: 8px 16px;
+  border: 1px solid whitesmoke;
+}
