@@ -20,6 +20,7 @@ const app = {
   player: undefined,
 
   map: undefined,
+  goal: undefined,
   enemies: [],
 
   init() {
@@ -29,6 +30,9 @@ const app = {
 
   start() {
     this.setMap()
+
+    this.goal = new Goal(this.ctx, 20*48, 0)
+    this.goal.init()
 
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
     this.player.init()
@@ -41,17 +45,18 @@ const app = {
     this.interval = setInterval(() => {
       this.clear()
 
+      this.player.isCollision(this.player, this.goal) ? this.gameOver("win") : null
+
       this.enemies.forEach((enemy) => {
         enemy.actionCounter > enemy.behavior.length - 1
           ? (enemy.actionCounter = 0)
           : null
 
         enemy.doAction(enemy.behavior[enemy.actionCounter])
-
-        enemy.isCollision(this.player, enemy) ? this.gameOver() : null
+        enemy.isCollision(this.player, enemy) ? this.gameOver(loss) : null
 
         enemy.bullets.forEach((bullet) => {
-          bullet.isCharCollision(bullet, this.player) ? this.gameOver() : null
+          bullet.isCharCollision(bullet, this.player) ? this.gameOver(loss) : null
           enemy.removeBullet(bullet)
         })
       })
@@ -117,7 +122,7 @@ const app = {
 
   drawAll() {
     this.drawMap(0, this.map) //base layer
-
+    this.goal.draw()
     this.player.draw()
     this.drawEnemies()
 
@@ -156,9 +161,18 @@ const app = {
     this.enemies.forEach((enemy) => enemy.draw())
   },
 
-  gameOver() {
-    alert(`GAME OVER`)
+
+  //placeholder until i figure out how to make an actual game over screen
+  gameOver(mode) {
+    switch (mode) {
+      case "loss":
+        alert(`GAME OVER`)
+        break
+      case "win":
+        alert(`You managed to escape!`)
+        break
+    }
     document.location.reload()
     window.clearInterval(this.interval)
-  },
+  }
 }
