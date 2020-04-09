@@ -36,7 +36,7 @@ const app = {
     this.bgMusic.play()
     this.setMap()
 
-    this.goal = new Goal(this.ctx, 20*48, 0)
+    this.goal = new Goal(this.ctx, 25*48, 0)
     this.goal.init()
 
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
@@ -88,8 +88,8 @@ const app = {
   },
 
   setDimensions() {
-    this.appSize.width = this.map.dimensions.cols * this.map.tileSize
-    this.appSize.height = this.map.dimensions.rows * this.map.tileSize
+    this.appSize.width = 30*48
+    this.appSize.height = 15*48
     this.canvasDom.width = this.appSize.width
     this.canvasDom.height = this.appSize.height
   },
