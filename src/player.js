@@ -7,8 +7,8 @@ class Player {
     this.image = undefined
 
     this.position = {
-      x: 21 * app.map.tileSize,
-      y: 16 * app.map.tileSize,
+      x: 22 * app.gameMap.tileSize,
+      y: 11 * app.gameMap.tileSize,
     }
 
     this.spriteSource = './img/protag.png'
@@ -25,7 +25,7 @@ class Player {
 
   init() {
     this.image = new Image()
-    this.laserSound = new Audio("./audio/NFF-laser-gun.wav")
+    this.laserSound = new Audio('./audio/NFF-laser-gun.wav')
     this.image.src = this.spriteSource
     this.image.frames = 9
     this.image.frameIndex = 0
@@ -95,13 +95,7 @@ class Player {
 
     switch (direction) {
       case 'N':
-        !app.map.isSolidTile(
-          0,
-          this.position.x,
-          (this.position.y -= this.velocity)
-        ) &&
-        !app.map.isSolidTile(
-          1,
+        app.gameMap.isTransitable(
           this.position.x,
           (this.position.y -= this.velocity)
         )
@@ -109,13 +103,7 @@ class Player {
           : this.bump()
         break
       case 'S':
-        !app.map.isSolidTile(
-          0,
-          this.position.x,
-          (this.position.y += this.velocity)
-        ) &&
-        !app.map.isSolidTile(
-          1,
+        app.gameMap.isTransitable(
           this.position.x,
           (this.position.y += this.velocity)
         )
@@ -123,13 +111,7 @@ class Player {
           : this.bump()
         break
       case 'E':
-        !app.map.isSolidTile(
-          0,
-          (this.position.x += this.velocity),
-          this.position.y
-        ) &&
-        !app.map.isSolidTile(
-          1,
+        app.gameMap.isTransitable(
           (this.position.x += this.velocity),
           this.position.y
         )
@@ -137,13 +119,7 @@ class Player {
           : this.bump()
         break
       case 'W':
-        !app.map.isSolidTile(
-          0,
-          (this.position.x -= this.velocity),
-          this.position.y
-        ) &&
-        !app.map.isSolidTile(
-          1,
+        app.gameMap.isTransitable(
           (this.position.x -= this.velocity),
           this.position.y
         )

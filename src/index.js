@@ -4,7 +4,6 @@ const gameApp = document.getElementById('game-app')
 const gameOverScreen = document.getElementById('game-over')
 const victoryScreen = document.getElementById('victory')
 const restartButtons = document.querySelectorAll('.restart-button')
-const credits = document.querySelector('#credits')
 
 restartButtons.forEach((button) =>
   button.addEventListener('click', (event) => {
