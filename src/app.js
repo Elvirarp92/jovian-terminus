@@ -139,7 +139,7 @@ const app = {
   },
 
   drawAll() {
-    this.drawMap(this.gameMap) //base layer
+    this.drawMap(this.gameMap.array) //base layer
     this.goal.draw(this.framesCounter)
     this.player.draw()
     this.drawEnemies()
@@ -148,23 +148,24 @@ const app = {
     this.enemies.forEach((enemy) =>
       enemy.bullets.forEach((bullet) => bullet.draw())
     )
+    this.drawMap(this.gameMap.upperLayer) 
   },
 
-  drawMap(gameMap) {
-    for (let c = 0; c < gameMap.dimensions.cols; c++) {
-      for (let r = 0; r < gameMap.dimensions.rows; r++) {
-        tile = this.gameMap.array[r][c]
+  drawMap(array) {
+    for (let c = 0; c < this.gameMap.dimensions.cols; c++) {
+      for (let r = 0; r < this.gameMap.dimensions.rows; r++) {
+        tile = array[r][c]
         if (tile != 0) {
           this.ctx.drawImage(
-            gameMap.tileset, // image
-            Math.floor((tile.id - 1) % gameMap.tilesPerRow) * gameMap.tileSize, //SourceX
-            Math.floor((tile.id - 1) / gameMap.tilesPerRow) * gameMap.tileSize, //SourceY
-            gameMap.tileSize, //Source Width
-            gameMap.tileSize, //Source Height
-            c * gameMap.tileSize, //TargetX
-            r * gameMap.tileSize, //TargetY
-            gameMap.tileSize, //Target width
-            gameMap.tileSize //Target Height
+            this.gameMap.tileset, // image
+            Math.floor((tile.id - 1) % this.gameMap.tilesPerRow) * this.gameMap.tileSize, //SourceX
+            Math.floor((tile.id - 1) / this.gameMap.tilesPerRow) * this.gameMap.tileSize, //SourceY
+            this.gameMap.tileSize, //Source Width
+            this.gameMap.tileSize, //Source Height
+            c * this.gameMap.tileSize, //TargetX
+            r * this.gameMap.tileSize, //TargetY
+            this.gameMap.tileSize, //Target width
+            this.gameMap.tileSize //Target Height
           )
         }
       }
