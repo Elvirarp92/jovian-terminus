@@ -15,6 +15,7 @@ class Bullet {
     this.direction = direction
     this.radius = 5
     this.velocity = 25
+    this.exists = true
   }
 
   draw() {
@@ -29,26 +30,46 @@ class Bullet {
   move(direction) {
     switch (direction) {
       case 'N':
-        this.position.y -= this.velocity
+        app.gameMap.isTransitable(
+          this.position.x,
+          (this.position.y -= this.velocity)
+        )
+          ? (this.position.y -= this.velocity)
+          : (this.exists = false)
         break
       case 'S':
-        this.position.y += this.velocity
+        app.gameMap.isTransitable(
+          this.position.x,
+          (this.position.y += this.velocity)
+        )
+          ? (this.position.y += this.velocity)
+          : (this.exists = false)
         break
       case 'E':
-        this.position.x += this.velocity
+        app.gameMap.isTransitable(
+          (this.position.x += this.velocity),
+          this.position.y
+        )
+          ? (this.position.x += this.velocity)
+          : (this.exists = false)
         break
       case 'W':
-        this.position.x -= this.velocity
+        app.gameMap.isTransitable(
+          (this.position.x -= this.velocity),
+          this.position.y
+        )
+          ? (this.position.x -= this.velocity)
+          : (this.exists = false)
         break
     }
   }
 
   isCharCollision(bullet, target) {
-      return (
-        bullet.position.x < target.position.x + target.size.width &&
-        bullet.position.x > target.position.x &&
-        bullet.position.y < target.position.y + target.size.height &&
-        bullet.position.y > target.position.y
-      )
+    return (
+      bullet.position.x < target.position.x + target.size.width &&
+      bullet.position.x > target.position.x &&
+      bullet.position.y < target.position.y + target.size.height &&
+      bullet.position.y > target.position.y
+    )
   }
 }

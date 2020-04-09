@@ -28,7 +28,7 @@ const app = {
 
   init() {
     this.ctx = this.canvasDom.getContext('2d')
-    this.bgMusic = new Audio("./audio/horror-ambiance.wav")
+    this.bgMusic = new Audio('./audio/horror-ambiance.wav')
     this.start()
   },
 
@@ -36,7 +36,7 @@ const app = {
     this.bgMusic.play()
     this.setMap()
 
-    this.goal = new Goal(this.ctx, 25*48, 0)
+    this.goal = new Goal(this.ctx, 25 * 48, 0)
     this.goal.init()
 
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
@@ -49,8 +49,10 @@ const app = {
 
     this.interval = setInterval(() => {
       this.clear()
-      this.framesCounter > 5000 ? this.framesCounter = 0 : null
-      this.player.isCollision(this.player, this.goal) ? this.gameOver("win") : null
+      this.framesCounter > 5000 ? (this.framesCounter = 0) : null
+      this.player.isCollision(this.player, this.goal)
+        ? this.gameOver('win')
+        : null
 
       this.enemies.forEach((enemy) => {
         enemy.actionCounter > enemy.behavior.length - 1
@@ -58,10 +60,12 @@ const app = {
           : null
 
         enemy.doAction(enemy.behavior[enemy.actionCounter])
-        enemy.isCollision(this.player, enemy) ? this.gameOver("loss") : null
+        enemy.isCollision(this.player, enemy) ? this.gameOver('loss') : null
 
         enemy.bullets.forEach((bullet) => {
-          bullet.isCharCollision(bullet, this.player) ? this.gameOver("loss") : null
+          bullet.isCharCollision(bullet, this.player)
+            ? this.gameOver('loss')
+            : null
           enemy.removeBullet(bullet)
         })
       })
@@ -77,6 +81,15 @@ const app = {
       })
 
       this.enemies = this.enemies.filter((enemy) => enemy.isAlive == true)
+      this.player.bullets = this.player.bullets.filter(
+        (bullet) => bullet.exists == true
+      )
+      this.enemies.forEach(
+        (enemy) =>
+          (enemy.bullets = enemy.bullets.filter(
+            (bullet) => bullet.exists == true
+          ))
+      )
 
       this.drawAll()
     }, 1000 / this.fps)
@@ -88,8 +101,8 @@ const app = {
   },
 
   setDimensions() {
-    this.appSize.width = 30*48
-    this.appSize.height = 15*48
+    this.appSize.width = 30 * 48
+    this.appSize.height = 15 * 48
     this.canvasDom.width = this.appSize.width
     this.canvasDom.height = this.appSize.height
   },
@@ -162,19 +175,18 @@ const app = {
     this.enemies.forEach((enemy) => enemy.draw(this.framesCounter))
   },
 
-
   gameOver(mode) {
     switch (mode) {
-      case "loss":
+      case 'loss':
         this.bgMusic.pause()
         window.clearInterval(this.interval)
-        gameOverScreen.style.display = "block"
+        gameOverScreen.style.display = 'block'
         break
-      case "win":
+      case 'win':
         this.bgMusic.pause()
         window.clearInterval(this.interval)
-        victoryScreen.style.display = "block"
+        victoryScreen.style.display = 'block'
         break
     }
-  }
+  },
 }
