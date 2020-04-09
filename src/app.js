@@ -181,11 +181,13 @@ const app = {
         this.bgMusic.pause()
         window.clearInterval(this.interval)
         gameOverScreen.style.display = 'block'
+        gameApp.style.display = 'none'
         break
       case 'win':
         this.bgMusic.pause()
         window.clearInterval(this.interval)
         victoryScreen.style.display = 'block'
+        gameApp.style.display = 'none'
         break
     }
   },

@@ -13,7 +13,7 @@ class Bullet {
       y: shooterPosY + shooterHeight / 2,
     }
     this.direction = direction
-    this.radius = 5
+    this.radius = 3
     this.velocity = 25
     this.exists = true
   }
