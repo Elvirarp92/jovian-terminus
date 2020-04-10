@@ -32,7 +32,7 @@ class Enemy extends Player {
         }
       }
 
-      this.shoot()
+      if (Math.random() > 0.25 ) {this.shoot()}
     }
 
     this.counter++
