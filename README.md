@@ -15,3 +15,5 @@ Sprites made in Universal LPC Spritesheet Generator. Tileset by Hyptosis. Goal a
 
 ## 💜 Acknowledgements
 To my teachers in Ironhack, particularly to Germán for the help on refactoring the map and to Quique as the Product Owner for this game.
+
+To Azahara for lending a hand when the project seemed unsalvageable.
