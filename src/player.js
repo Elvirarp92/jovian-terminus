@@ -7,8 +7,8 @@ class Player {
     this.image = undefined
 
     this.position = {
-      x: 22 * app.gameMap.tileSize,
-      y: 11 * app.gameMap.tileSize,
+      x: 2 * app.gameMap.tileSize,
+      y: 13 * app.gameMap.tileSize,
     }
 
     this.spriteSource = './img/protag.png'

@@ -55,11 +55,7 @@ const app = {
         : null
 
       this.enemies.forEach((enemy) => {
-        enemy.actionCounter > enemy.behavior.length - 1
-          ? (enemy.actionCounter = 0)
-          : null
-
-        enemy.doAction(enemy.behavior[enemy.actionCounter])
+        enemy.act()
         enemy.isCollision(this.player, enemy) ? this.gameOver('loss') : null
 
         enemy.bullets.forEach((bullet) => {
@@ -114,10 +110,9 @@ const app = {
         this.appSize.width,
         this.appSize.height,
         'S',
-        11 * this.gameMap.tileSize,
-        3 * this.gameMap.tileSize,
+        10 * this.gameMap.tileSize,
+        5 * this.gameMap.tileSize,
         10,
-        enemyRoute1
       )
     )
     this.enemies.push(
@@ -125,11 +120,10 @@ const app = {
         app.canvasDom.getContext('2d'),
         app.appSize.width,
         app.appSize.height,
-        'W',
-        5 * this.gameMap.tileSize,
-        10 * this.gameMap.tileSize,
+        'S',
+        25 * this.gameMap.tileSize,
+        3 * this.gameMap.tileSize,
         10,
-        enemyRoute2
       )
     )
   },

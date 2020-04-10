@@ -32,3 +32,10 @@ button {
   padding: 16px 32px;
   border: 1px solid whitesmoke;
 }
+
+small {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  margin: 0 auto;
+}

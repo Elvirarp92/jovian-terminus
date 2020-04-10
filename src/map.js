@@ -10,12 +10,19 @@ class Map {
   }
 
   isTransitable(x, y) {
-    let c = Math.round(x / this.tileSize)
-    let r = Math.round(y / this.tileSize)
-    
-    let tile = this.array[r][c]
+    if (!this.validatePosition(x, y)) {return false}
+    let column = Math.round(x / this.tileSize)
+    let row = Math.round(y / this.tileSize)
+
+    let tile = this.array[row][column]
 
     return tile.isTransitable
+  }
+
+  validatePosition(x, y) {
+    if (x < 48 || x > app.appSize.width - 48 || y < 48 || y > app.appSize.height - 48) {
+      return false
+    } else {return true}
   }
 }
 
@@ -23,10 +30,10 @@ class Tile {
   constructor(id, transitability) {
     this.id = id
 
-    switch(transitability) {
-      case true: 
-       this.isTransitable = true
-       break
+    switch (transitability) {
+      case true:
+        this.isTransitable = true
+        break
       case false:
         this.isTransitable = false
         break
