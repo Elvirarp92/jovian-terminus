@@ -9,6 +9,10 @@ body {
   margin: 0 auto;
 }
 
+body{
+  overflow:hidden
+  }
+
 #start-screen, #game-over, #victory {
   text-align: center;
   margin: 160px;
