@@ -1,7 +1,6 @@
 class Enemy extends Player {
-  constructor(ctx, gameWidth, gameHeight, orientation, posX, posY, velocity) {
+  constructor(ctx, gameWidth, gameHeight, orientation, posX, posY) {
     super(ctx, gameWidth, gameHeight)
-    this.velocity = velocity
 
     this.orientation = orientation
     this.position = { x: posX, y: posY }

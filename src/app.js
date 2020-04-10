@@ -110,9 +110,8 @@ const app = {
         this.appSize.width,
         this.appSize.height,
         'S',
-        10 * this.gameMap.tileSize,
-        5 * this.gameMap.tileSize,
-        10,
+        3 * this.gameMap.tileSize,
+        7 * this.gameMap.tileSize
       )
     )
     this.enemies.push(
@@ -121,9 +120,68 @@ const app = {
         app.appSize.width,
         app.appSize.height,
         'S',
-        25 * this.gameMap.tileSize,
-        3 * this.gameMap.tileSize,
-        10,
+        12 * this.gameMap.tileSize,
+        12 * this.gameMap.tileSize
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        10 * this.gameMap.tileSize,
+        3 * this.gameMap.tileSize
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        19 * this.gameMap.tileSize,
+        5 * this.gameMap.tileSize
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        15 * this.gameMap.tileSize,
+        12 * this.gameMap.tileSize
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        27 * this.gameMap.tileSize,
+        9 * this.gameMap.tileSize
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        24 * this.gameMap.tileSize,
+        11 * this.gameMap.tileSize
+      )
+    )
+    this.enemies.push(
+      new Enemy(
+        this.canvasDom.getContext('2d'),
+        this.appSize.width,
+        this.appSize.height,
+        'S',
+        26 * this.gameMap.tileSize,
+        2 * this.gameMap.tileSize
       )
     )
   },
