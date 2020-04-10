@@ -6,6 +6,8 @@ class Enemy extends Player {
     this.orientation = orientation
     this.position = { x: posX, y: posY }
 
+    this.counter = 0
+
     this.spriteSource = './img/skeleton-baddie.png'
 
     this.isAlive = true
@@ -16,19 +18,24 @@ class Enemy extends Player {
   desiredDirection: undefined/"N"/"S"/"E"/"W" - relevant only for rotations}   */
 
   act() {
-    if (this.orientation == 'N' || this.orientation == 'S') {
-      if (Math.round(Math.random()) == 1) {
-        this.rotate('E')
+    if (this.counter % 30 == 0) {
+      if (this.orientation == 'N' || this.orientation == 'S') {
+        if (Math.round(Math.random()) == 1) {
+          this.rotate('E')
+        } else {
+          this.rotate('W')
+        }
       } else {
-        this.rotate('W')
+        if (Math.round(Math.random()) == 1) {
+          this.rotate('N')
+        } else {
+          this.rotate('S')
+        }
       }
-    } else {
-      if (Math.round(Math.random()) == 1) {
-        this.rotate('N')
-      } else {
-        this.rotate('S')
-      }
+
+      this.shoot()
     }
-    this.shoot()
+
+    this.counter++
   }
 }

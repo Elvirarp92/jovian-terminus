@@ -36,7 +36,7 @@ const app = {
     this.bgMusic.play()
     this.setMap()
 
-    this.goal = new Goal(this.ctx, 25 * 48, 0)
+    this.goal = new Goal(this.ctx, 25 * 48, 0.5*48)
     this.goal.init()
 
     this.player = new Player(this.ctx, this.appSize.width, this.appSize.height)
